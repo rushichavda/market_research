@@ -1,0 +1,2372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌟 Wellness Journey Discovery</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --success-gradient: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            --warning-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --dark-bg: #0a0a0f;
+            --card-bg: rgba(255, 255, 255, 0.08);
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--dark-bg);
+            min-height: 100vh;
+            color: var(--text-primary);
+            overflow-x: hidden;
+            position: relative;
+            font-size: 16px;
+        }
+
+        /* Animated Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.3) 0%, transparent 50%);
+            animation: backgroundFloat 20s ease-in-out infinite;
+            z-index: -2;
+        }
+
+        /* Floating Geometric Shapes */
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .shape:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            width: 80px;
+            height: 80px;
+            background: var(--primary-gradient);
+            border-radius: 50%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            top: 20%;
+            right: 10%;
+            width: 60px;
+            height: 60px;
+            background: var(--secondary-gradient);
+            transform: rotate(45deg);
+            animation-delay: 2s;
+        }
+
+        .shape:nth-child(3) {
+            bottom: 20%;
+            left: 15%;
+            width: 100px;
+            height: 100px;
+            background: var(--accent-gradient);
+            border-radius: 30%;
+            animation-delay: 4s;
+        }
+
+        .shape:nth-child(4) {
+            bottom: 30%;
+            right: 20%;
+            width: 120px;
+            height: 40px;
+            background: var(--success-gradient);
+            border-radius: 20px;
+            animation-delay: 1s;
+        }
+
+        @keyframes backgroundFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-30px) rotate(0.5deg); }
+            66% { transform: translateY(30px) rotate(-0.5deg); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        /* Confetti Animation */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: #f0f;
+            animation: confetti-fall 3s linear infinite;
+            z-index: 1000;
+        }
+
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 10px;
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .question-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 30px;
+            margin: 10px 0;
+            box-shadow: 
+                0 32px 64px rgba(0, 0, 0, 0.4),
+                0 0 80px rgba(102, 126, 234, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-color);
+            display: none;
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .question-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--primary-gradient);
+            opacity: 0.8;
+        }
+
+        .question-card.active {
+            display: block;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: clamp(2rem, 8vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 15px;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            animation: titleGlow 2s ease-in-out infinite alternate;
+            line-height: 1.2;
+        }
+
+        @keyframes titleGlow {
+            from { filter: drop-shadow(0 0 20px rgba(102, 126, 234, 0.5)); }
+            to { filter: drop-shadow(0 0 40px rgba(102, 126, 234, 0.8)); }
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            margin-bottom: 30px;
+            line-height: 1.6;
+            font-weight: 400;
+            padding: 0 10px;
+        }
+
+        .question-title {
+            font-size: clamp(1.5rem, 6vw, 2.5rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            text-align: center;
+            background: linear-gradient(135deg, #ffffff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.3;
+        }
+
+        .question-subtitle {
+            color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
+            line-height: 1.6;
+            font-weight: 400;
+            padding: 0 10px;
+        }
+
+        /* Other Input Field */
+        .other-input {
+            width: 100%;
+            padding: 12px 20px;
+            margin-top: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            display: none;
+        }
+
+        .other-input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.2);
+        }
+
+        .other-input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        /* Enhanced Age Slider */
+        .age-slider-container {
+            padding: 30px 10px;
+            text-align: center;
+        }
+
+        .age-slider {
+            width: 100%;
+            max-width: 400px;
+            height: 10px;
+            -webkit-appearance: none;
+            background: linear-gradient(90deg, 
+                #667eea 0%, 
+                #764ba2 20%, 
+                #f093fb 40%, 
+                #43e97b 60%, 
+                #4facfe 80%, 
+                #fa709a 100%);
+            border-radius: 5px;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .age-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 28px;
+            height: 28px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 
+                0 6px 12px rgba(0, 0, 0, 0.3),
+                0 0 0 3px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .age-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 
+                0 8px 16px rgba(0, 0, 0, 0.4),
+                0 0 0 6px rgba(102, 126, 234, 0.4);
+        }
+
+        .age-display {
+            font-size: clamp(2rem, 8vw, 3rem);
+            font-weight: 800;
+            margin-top: 20px;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* Discovery Cards */
+        .discovery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .discovery-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            color: var(--text-primary);
+            padding: 20px 15px;
+            border-radius: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .discovery-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .discovery-card:hover::before {
+            left: 100%;
+        }
+
+        .discovery-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: rgba(102, 126, 234, 0.5);
+            box-shadow: 
+                0 15px 30px rgba(0, 0, 0, 0.3),
+                0 0 40px rgba(102, 126, 234, 0.2);
+        }
+
+        .discovery-card.selected {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+            border-color: #667eea;
+            transform: scale(1.05);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.4),
+                0 0 60px rgba(102, 126, 234, 0.4);
+        }
+
+        .discovery-card div:first-child {
+            margin-bottom: 8px;
+            font-size: 2rem;
+        }
+
+        .discovery-card strong {
+            display: block;
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
+            font-weight: 600;
+            margin-bottom: 5px;
+            line-height: 1.2;
+        }
+
+        .discovery-card p {
+            font-size: clamp(0.7rem, 2.5vw, 0.9rem);
+            opacity: 0.8;
+            line-height: 1.3;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            min-width: 100px;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--card-bg);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            margin-bottom: 30px;
+            overflow: hidden;
+            position: relative;
+            max-width: 100%;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary-gradient);
+            border-radius: 3px;
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: progressShine 2s infinite;
+        }
+
+        @keyframes progressShine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        /* Star Rating */
+        .star-rating {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .star {
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            color: rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        .star:hover,
+        .star.active {
+            color: #ffd700;
+            transform: scale(1.2) rotate(15deg);
+            filter: drop-shadow(0 4px 8px rgba(255, 215, 0, 0.4));
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .feature-item {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .feature-item:hover {
+            transform: translateX(5px);
+            border-color: rgba(102, 126, 234, 0.5);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-name {
+            font-size: clamp(1rem, 3.5vw, 1.2rem);
+            color: var(--text-primary);
+            font-weight: 600;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        /* Toggle Switch */
+        .toggle-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 30px 0;
+            padding: 30px 20px;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+        }
+
+        .toggle-switch {
+            width: 100px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            padding: 5px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            margin: 15px 0;
+            border: 2px solid var(--border-color);
+            position: relative;
+        }
+
+        .toggle-switch::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: var(--primary-gradient);
+            border-radius: 27px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .toggle-switch.active::before {
+            opacity: 1;
+        }
+
+        .toggle-switch.active {
+            background: rgba(102, 126, 234, 0.2);
+        }
+
+        .toggle-slider {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 1.2rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        .toggle-switch.active .toggle-slider {
+            transform: translateX(50px);
+            background: var(--primary-gradient);
+            color: white;
+        }
+
+        .toggle-labels {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 200px;
+            margin-top: 15px;
+            color: var(--text-secondary);
+            font-size: clamp(0.8rem, 3vw, 1rem);
+            font-weight: 500;
+        }
+
+        /* App Selection */
+        .app-grid {
+            display: grid;
+            gap: 12px;
+            margin: 30px 0;
+        }
+
+        .app-option {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            padding: 15px 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .app-option:hover {
+            transform: translateX(5px);
+            border-color: rgba(102, 126, 234, 0.5);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .app-option.selected {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+            border-color: #667eea;
+        }
+
+        .app-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .app-option.selected .app-checkbox {
+            background: var(--primary-gradient);
+            border-color: transparent;
+        }
+
+        .app-option.selected .app-checkbox::after {
+            content: '✓';
+            color: white;
+            font-weight: bold;
+        }
+
+        /* Location Map */
+        .location-map {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+            margin: 30px 0;
+        }
+
+        .city-dot {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            padding: 15px 10px;
+            border-radius: 15px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+            font-size: clamp(0.8rem, 2.5vw, 1rem);
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .city-dot::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.2) 0%, transparent 70%);
+            transition: all 0.4s ease;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+        }
+
+        .city-dot:hover::before {
+            width: 150px;
+            height: 150px;
+        }
+
+        .city-dot:hover {
+            transform: translateY(-5px) scale(1.05);
+            border-color: rgba(102, 126, 234, 0.5);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .city-dot.selected {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+            border-color: #667eea;
+            transform: scale(1.1);
+        }
+
+        /* Price Cards */
+        .price-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .price-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            padding: 20px 15px;
+            border-radius: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .price-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--primary-gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .price-card.selected::after {
+            opacity: 0.1;
+        }
+
+        .price-amount {
+            font-size: clamp(1.2rem, 4vw, 1.6rem);
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .price-card div:last-child {
+            font-size: clamp(0.8rem, 2.5vw, 1rem);
+            position: relative;
+            z-index: 1;
+        }
+
+        .price-card:hover {
+            transform: translateY(-5px) scale(1.05);
+            border-color: rgba(102, 126, 234, 0.5);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .price-card.selected {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+            border-color: #667eea;
+            transform: scale(1.08);
+        }
+
+        /* Barrier Options */
+        .barrier-options {
+            display: grid;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .barrier-option {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .barrier-option::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 0;
+            background: var(--primary-gradient);
+            transition: width 0.4s ease;
+            opacity: 0.1;
+        }
+
+        .barrier-option:hover::before {
+            width: 100%;
+        }
+
+        .barrier-icon {
+            font-size: clamp(1.5rem, 5vw, 2rem);
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .barrier-option:hover {
+            transform: translateX(8px);
+            border-color: rgba(102, 126, 234, 0.5);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .barrier-option:hover .barrier-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .barrier-option.selected {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+            border-color: #667eea;
+            transform: translateX(8px);
+        }
+
+        .barrier-option strong {
+            font-size: clamp(1rem, 3.5vw, 1.2rem);
+            margin-bottom: 3px;
+            display: block;
+        }
+
+        .barrier-option p {
+            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+            opacity: 0.8;
+            line-height: 1.3;
+        }
+
+        /* Motivation Slider - FIXED */
+        .motivation-slider {
+            margin: 30px 0;
+            padding: 0 20px;
+        }
+
+        .motivation-track {
+            height: 12px;
+            background: linear-gradient(90deg, 
+                #667eea 0%, 
+                #764ba2 25%, 
+                #43e97b 50%, 
+                #4facfe 75%, 
+                #fa709a 100%);
+            border-radius: 6px;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .motivation-thumb {
+            width: 70px;
+            height: 70px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(1.5rem, 5vw, 2rem);
+            cursor: grab;
+            user-select: none;
+            box-shadow: 
+                0 8px 16px rgba(0, 0, 0, 0.3),
+                0 0 0 4px rgba(102, 126, 234, 0.3);
+            transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 2;
+        }
+
+        .motivation-thumb:hover {
+            box-shadow: 
+                0 12px 24px rgba(0, 0, 0, 0.4),
+                0 0 0 8px rgba(102, 126, 234, 0.4);
+        }
+
+        .motivation-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            color: var(--text-secondary);
+            font-size: clamp(0.8rem, 2.5vw, 1rem);
+            font-weight: 500;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Navigation Buttons */
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        /* Error message */
+        .error-message {
+            color: #ff6b6b;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* Results */
+        .results {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: 20px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+
+        .results h3 {
+            font-size: clamp(1.5rem, 5vw, 2rem);
+            margin-bottom: 25px;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .result-item:hover {
+            background: rgba(255, 255, 255, 0.02);
+            padding-left: 8px;
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .result-item strong {
+            color: var(--text-primary);
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
+            font-weight: 600;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .result-item span {
+            color: var(--text-secondary);
+            font-size: clamp(0.9rem, 3vw, 1.1rem);
+            text-align: right;
+        }
+
+        /* Mobile Specific Adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 5px;
+                align-items: flex-start;
+                padding-top: 20px;
+            }
+            
+            .question-card {
+                padding: 20px 15px;
+                border-radius: 20px;
+                margin: 5px 0;
+            }
+            
+            .discovery-grid,
+            .location-map,
+            .price-cards {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+                gap: 10px;
+            }
+            
+            .nav-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .nav-buttons .btn {
+                width: 100%;
+                padding: 15px;
+            }
+
+            .feature-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+
+            .feature-name {
+                min-width: auto;
+            }
+
+            .barrier-option {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+            }
+
+            .result-item {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .result-item span {
+                text-align: left;
+            }
+
+            .motivation-slider {
+                padding: 0 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .question-card {
+                padding: 15px 10px;
+            }
+
+            .discovery-grid,
+            .location-map,
+            .price-cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Button Click Animation */
+        .btn.clicked {
+            animation: buttonClick 0.2s ease;
+        }
+
+        @keyframes buttonClick {
+            0% { transform: scale(1); }
+            50% { transform: scale(0.95); }
+            100% { transform: scale(1); }
+        }
+
+        /* Sound visualization */
+        .sound-wave {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 30px;
+            height: 30px;
+            display: none;
+            z-index: 1000;
+            font-size: 1.5rem;
+        }
+
+        .sound-wave.active {
+            display: block;
+            animation: pulse 0.5s ease;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.2); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sound Wave Indicator -->
+    <div class="sound-wave" id="soundWave">🔊</div>
+
+    <!-- Floating Geometric Shapes -->
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <div class="container">
+        <!-- Welcome Screen -->
+        <div class="question-card active" id="welcome">
+            <h1>🌟 Wellness Journey Discovery</h1>
+            <p class="subtitle">Let's discover your perfect wellness companion! This fun interactive experience will help us understand your health and fitness preferences to create a personalized journey just for you.</p>
+            <p style="margin-top: 20px; text-align: center; font-size: 1.1rem; font-weight: 500;"> Spend just <strong>3 minutes</strong> on our survey to shape the next-gen AI wellness app and enter the draw for <strong>one of ten ₹2,000 Amazon vouchers.</strong>
+            </p>
+            <img src="C:\Elix\feedback_market\icon_crop.png" alt="App Icon" style="margin-top: 25px; width: 125px; height: 125px; border-radius: 50%; object-fit: cover; display: block; margin-left: auto; margin-right: auto;">
+
+            <div style="text-align: center; margin-top: 40px;">
+                <button class="btn btn-primary" onclick="nextQuestion(this)">Start Your Journey ✨</button>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-bar" id="progress-container" style="display: none;">
+            <div class="progress-fill" id="progress-fill"></div>
+        </div>
+
+        <!-- Question 1: Age -->
+        <div class="question-card" id="q1">
+            <h2 class="question-title">🎂 What's your age vibe?</h2>
+            <p class="question-subtitle">Slide to find your age range - each color represents a different life stage with unique wellness needs!</p>
+            
+            <div class="age-slider-container">
+                <input type="range" min="0" max="5" value="2" class="age-slider" id="ageSlider">
+                <div class="age-display" id="ageDisplay">24-34</div>
+            </div>
+
+            <div class="error-message" id="q1-error">Please select your age range</div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="prevQuestion(this)">← Back</button>
+                <button class="btn btn-primary" onclick="nextQuestion(this)">Next →</button>
+            </div>
+        </div>
+
+        <!-- Question 2: Discovery Source -->
+        <div class="question-card" id="q2">
+            <h2 class="question-title">🔍 How did you discover us?</h2>
+            <p class="question-subtitle">Click the card that matches your discovery story - we love knowing how awesome people like you find us!</p>
+            
+            <div class="discovery-grid">
+                <div class="discovery-card" data-value="campus" onclick="selectDiscovery(this)">
+                    <div>🎓</div>
+                    <strong>Campus Life</strong>
+                    <p>University or college</p>
+                </div>
+                <div class="discovery-card" data-value="gym" onclick="selectDiscovery(this)">
+                    <div>💪</div>
+                    <strong>Gym Buddy</strong>
+                    <p>Fitness club or gym</p>
+                </div>
+                <div class="discovery-card" data-value="work" onclick="selectDiscovery(this)">
+                    <div>💼</div>
+                    <strong>Work Squad</strong>
+                    <p>Through workplace</p>
+                </div>
+                <div class="discovery-card" data-value="social" onclick="selectDiscovery(this)">
+                    <div>👥</div>
+                    <strong>Social Circle</strong>
+                    <p>Friends or social media</p>
+                </div>
+                <div class="discovery-card" data-value="other" onclick="selectDiscovery(this)">
+                    <div>🔍</div>
+                    <strong>Other Ways</strong>
+                    <p>Different source</p>
+                </div>
+            </div>
+
+            <input type="text" class="other-input" id="discoveryOther" placeholder="Please specify..." />
+
+            <div class="error-message" id="q2-error">Please select how you discovered us</div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="prevQuestion(this)">← Back</button>
+                <button class="btn btn-primary" onclick="nextQuestion(this)">Next →</button>
+            </div>
+        </div>
+
+        <!-- Question 3: Location -->
+        <div class="question-card" id="q3">
+            <h2 class="question-title">📍 Where do you call home?</h2>
+            <p class="question-subtitle">Select your city from the map below - we'll personalize your experience based on your location!</p>
+            
+            <div class="location-map">
+                <div class="city-dot" data-value="delhi" onclick="selectCity(this)">🏛️ Delhi</div>
+                <div class="city-dot" data-value="mumbai" onclick="selectCity(this)">🌊 Mumbai</div>
+                <div class="city-dot" data-value="kolkata" onclick="selectCity(this)">🎭 Kolkata</div>
+                <div class="city-dot" data-value="bengaluru" onclick="selectCity(this)">💻 Bengaluru</div>
+                <div class="city-dot" data-value="chennai" onclick="selectCity(this)">🌴 Chennai</div>
+                <div class="city-dot" data-value="hyderabad" onclick="selectCity(this)">💎 Hyderabad</div>
+                <div class="city-dot" data-value="pune" onclick="selectCity(this)">🎓 Pune</div>
+                <div class="city-dot" data-value="other" onclick="selectCity(this)">🗺️ Other City</div>
+            </div>
+
+            <input type="text" class="other-input" id="locationOther" placeholder="Please specify your city..." />
+
+            <div class="error-message" id="q3-error">Please select your location</div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="prevQuestion(this)">← Back</button>
+                <button class="btn btn-primary" onclick="nextQuestion(this)">Next →</button>
+            </div>
+        </div>
+
+        <!-- Question 4: App Usage -->
+        <div class="question-card" id="q4">
+            <h2 class="question-title">📱 Are you already using health apps?</h2>
+            <p class="question-subtitle">Toggle the switch to show your current app usage - no judgment here, we're just curious!</p>
+            
+            <div class="toggle-container">
+                <div class="toggle-switch" id="appToggle" onclick="toggleAppUsage()">
+                    <div class="toggle-slider">❌</div>
+                </div>
+                <div class="toggle-labels">
+                    <span>No Apps</span>
+                    <span>Using Apps</span>
+                </div>
+            </div>
+
+            <div class="error-message" id="q4-error">Please indicate if you use health apps</div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="prevQuestion(this)">← Back</button>
+                <button class="btn btn-primary" onclick="nextQuestion(this)">Next →</button>
+            </div>
+        </div>
+
+        <!-- Question 4a: Which Apps (Conditional) -->
+        <div class="question-card" id="q4a">
+            <h2 class="question-title">📲 Which ones are you using?</h2>
+            <p class="question-subtitle">Select all the health and fitness apps you currently use</p>
+            
+            <div class="app-grid">
+                <div class="app-option" data-value="healthifyme" onclick="selectApp(this)">
+                    <div class="app-checkbox"></div>
+                    <span>HealthifyMe</span>
+                </div>
+                <div class="app-option" data-value="curefit" onclick="selectApp(this)">
+                    <div class="app-checkbox"></div>
+                    <span>Cure.fit (Cult.fit)</span>
+                </div>
+                <div class="app-option" data-value="goqii" onclick="selectApp(this)">
+                    <div class="app-checkbox"></div>
+                    <span>GOQii</span>
+                </div>
+                <div class="app-option" data-value="fittr" onclick="selectApp(this)">
+                    <div class="app-checkbox"></div>
+                    <span>Fittr</span>
+                </div>
+                <div class="app-option" data-value="myfitnesspal" onclick="selectApp(this)">
+                    <div class="app-checkbox"></div>
+                    <span>MyFitnessPal</span>
+                </div>
+                <div class="app-option" data-value="googlefit" onclick="selectApp(this)">
+                    <div class="app-checkbox"></div>
+                    <span>Google Fit</span>
+                </div>
+                <div class="app-option" data-value="applehealth" onclick="selectApp(this)">
+                    <div class="app-checkbox"></div>
+                    <span>Apple Health</span>
+                </div>
+                <div class="app-option" data-value="fitbit" onclick="selectApp(this)">
+                    <div class="app-checkbox"></div>
+                    <span>Fitbit (device companion)</span>
+                </div>
+                <div class="app-option" data-value="strava" onclick="selectApp(this)">
+                    <div class="app-checkbox"></div>
+                    <span>Strava</span>
+                </div>
+                <div class="app-option" data-value="nike" onclick="selectApp(this)">
+                    <div class="app-checkbox"></div>
+                    <span>Nike Training Club</span>
+                </div>
+                <div class="app-option" data-value="adidas" onclick="selectApp(this)">
+                    <div class="app-checkbox"></div>
+                    <span>Adidas Runtastic</span>
+                </div>
+                <div class="app-option" data-value="other" onclick="selectApp(this)">
+                    <div class="app-checkbox"></div>
+                    <span>Other</span>
+                </div>
+            </div>
+
+            <input type="text" class="other-input" id="appOther" placeholder="Please specify other apps..." />
+
+            <div class="error-message" id="q4a-error">Please select at least one app</div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="prevQuestion(this)">← Back</button>
+                <button class="btn btn-primary" onclick="nextQuestion(this)">Next →</button>
+            </div>
+        </div>
+
+        <!-- Question 5: Feature Interests -->
+        <div class="question-card" id="q5">
+            <h2 class="question-title">⭐ Rate these cool features!</h2>
+            <p class="question-subtitle">Click the stars to show how excited you are about each feature - the more stars, the more awesome it is!</p>
+            
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-name">📦 Smart Food Scanner</div>
+                    <div class="star-rating" data-feature="food-scanner">
+                        <span class="star" data-rating="1">⭐</span>
+                        <span class="star" data-rating="2">⭐</span>
+                        <span class="star" data-rating="3">⭐</span>
+                        <span class="star" data-rating="4">⭐</span>
+                        <span class="star" data-rating="5">⭐</span>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-name">🔄 AI Meal Swaps</div>
+                    <div class="star-rating" data-feature="meal-swaps">
+                        <span class="star" data-rating="1">⭐</span>
+                        <span class="star" data-rating="2">⭐</span>
+                        <span class="star" data-rating="3">⭐</span>
+                        <span class="star" data-rating="4">⭐</span>
+                        <span class="star" data-rating="5">⭐</span>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-name">📸 Camera Workout Coach</div>
+                    <div class="star-rating" data-feature="camera-coach">
+                        <span class="star" data-rating="1">⭐</span>
+                        <span class="star" data-rating="2">⭐</span>
+                        <span class="star" data-rating="3">⭐</span>
+                        <span class="star" data-rating="4">⭐</span>
+                        <span class="star" data-rating="5">⭐</span>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-name">🏆 Friendly Challenges</div>
+                    <div class="star-rating" data-feature="challenges">
+                        <span class="star" data-rating="1">⭐</span>
+                        <span class="star" data-rating="2">⭐</span>
+                        <span class="star" data-rating="3">⭐</span>
+                        <span class="star" data-rating="4">⭐</span>
+                        <span class="star" data-rating="5">⭐</span>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-name">🎬 Quick Expert Tips</div>
+                    <div class="star-rating" data-feature="expert-tips">
+                        <span class="star" data-rating="1">⭐</span>
+                        <span class="star" data-rating="2">⭐</span>
+                        <span class="star" data-rating="3">⭐</span>
+                        <span class="star" data-rating="4">⭐</span>
+                        <span class="star" data-rating="5">⭐</span>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-name">📺 Live Workout Streams</div>
+                    <div class="star-rating" data-feature="live-streams">
+                        <span class="star" data-rating="1">⭐</span>
+                        <span class="star" data-rating="2">⭐</span>
+                        <span class="star" data-rating="3">⭐</span>
+                        <span class="star" data-rating="4">⭐</span>
+                        <span class="star" data-rating="5">⭐</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="error-message" id="q5-error">Please rate all features</div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="prevQuestion(this)">← Back</button>
+                <button class="btn btn-primary" onclick="nextQuestion(this)">Next →</button>
+            </div>
+        </div>
+
+        <!-- Question 6: Motivation -->
+        <div class="question-card" id="q6">
+            <h2 class="question-title">🎯 Would rewards motivate you?</h2>
+            <p class="question-subtitle">Drag the emoji to show how much reward points would motivate you - be honest, we all love a good reward!</p>
+            
+            <div class="motivation-slider">
+                <div class="motivation-track" id="motivationTrack">
+                    <div class="motivation-thumb" id="motivationThumb">😐</div>
+                </div>
+                <div class="motivation-labels">
+                    <span>Not at all</span>
+                    <span>Very motivating!</span>
+                </div>
+            </div>
+
+            <div class="error-message" id="q6-error">Please indicate your motivation level</div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="prevQuestion(this)">← Back</button>
+                <button class="btn btn-primary" onclick="nextQuestion(this)">Next →</button>
+            </div>
+        </div>
+
+        <!-- Question 7: Pricing -->
+        <div class="question-card" id="q7">
+            <h2 class="question-title">💰 What's your budget sweet spot?</h2>
+            <p class="question-subtitle">Choose the monthly price range that feels right for a premium wellness app that'll change your life!</p>
+            
+            <div class="price-cards">
+                <div class="price-card" data-value="100-300" onclick="selectPrice(this)">
+                    <div class="price-amount">₹100-300</div>
+                    <div>Budget Friendly</div>
+                </div>
+                <div class="price-card" data-value="400-600" onclick="selectPrice(this)">
+                    <div class="price-amount">₹400-600</div>
+                    <div>Moderate</div>
+                </div>
+                <div class="price-card" data-value="700-900" onclick="selectPrice(this)">
+                    <div class="price-amount">₹700-900</div>
+                    <div>Premium</div>
+                </div>
+                <div class="price-card" data-value="1000+" onclick="selectPrice(this)">
+                    <div class="price-amount">₹1000+</div>
+                    <div>Luxury</div>
+                </div>
+            </div>
+
+            <div class="error-message" id="q7-error">Please select your budget preference</div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="prevQuestion(this)">← Back</button>
+                <button class="btn btn-primary" onclick="nextQuestion(this)">Next →</button>
+            </div>
+        </div>
+
+        <!-- Question 8: Barriers -->
+        <div class="question-card" id="q8">
+            <h2 class="question-title">🚧 What's your biggest wellness challenge?</h2>
+            <p class="question-subtitle">Select the main barrier that stops you from staying healthy - we'll help you overcome it!</p>
+            
+            <div class="barrier-options">
+                <div class="barrier-option" data-value="time" onclick="selectBarrier(this)">
+                    <div class="barrier-icon">⏰</div>
+                    <div>
+                        <strong>Lack of Time</strong>
+                        <p>Too busy with work, family, or other commitments</p>
+                    </div>
+                </div>
+                <div class="barrier-option" data-value="cost" onclick="selectBarrier(this)">
+                    <div class="barrier-icon">💸</div>
+                    <div>
+                        <strong>Cost</strong>
+                        <p>Health and fitness options are too expensive</p>
+                    </div>
+                </div>
+                <div class="barrier-option" data-value="motivation" onclick="selectBarrier(this)">
+                    <div class="barrier-icon">😴</div>
+                    <div>
+                        <strong>Motivation</strong>
+                        <p>Hard to stay consistent and motivated</p>
+                    </div>
+                </div>
+                <div class="barrier-option" data-value="confusion" onclick="selectBarrier(this)">
+                    <div class="barrier-icon">🤔</div>
+                    <div>
+                        <strong>Confusing Advice</strong>
+                        <p>Too much conflicting information</p>
+                    </div>
+                </div>
+                <div class="barrier-option" data-value="other" onclick="selectBarrier(this)">
+                    <div class="barrier-icon">❓</div>
+                    <div>
+                        <strong>Other</strong>
+                        <p>Something else entirely</p>
+                    </div>
+                </div>
+            </div>
+
+            <input type="text" class="other-input" id="barrierOther" placeholder="Please specify your challenge..." />
+
+            <div class="error-message" id="q8-error">Please select your main wellness challenge</div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="prevQuestion(this)">← Back</button>
+                <button class="btn btn-primary" onclick="submitAndNext(this)">Submit Survey 📤</button>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div class="question-card" id="results">
+            <h2 class="question-title">🎉 Thank you for your insights!</h2>
+            <p class="question-subtitle">Here's a summary of your wellness journey preferences - you're amazing!</p>
+            
+            <div class="results" id="resultsSummary">
+                <h3>Your Wellness Profile ✨</h3>
+                <div id="resultsContent"></div>
+            </div>
+
+            <!-- <div style="text-align: center; margin-top: 30px;">
+                <button class="btn btn-primary" onclick="downloadResults(this)">Download Results 📥</button>
+                <button class="btn btn-secondary" onclick="restartSurvey(this)" style="margin-left: 15px;">Start Over 🔄</button>
+            </div> -->
+        </div>
+    </div>
+
+    <script>
+        // Audio Context for sound effects
+        let audioContext;
+        let isAudioEnabled = false;
+
+        // Initialize audio
+        function initAudio() {
+            try {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                isAudioEnabled = true;
+            } catch (e) {
+                console.log('Audio not supported');
+                isAudioEnabled = false;
+            }
+        }
+
+        // Play sound effect
+        function playSound(frequency = 440, duration = 150) {
+            if (!isAudioEnabled || !audioContext) return;
+            
+            try {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
+                oscillator.type = 'sine';
+                
+                gainNode.gain.setValueAtTime(0, audioContext.currentTime);
+                gainNode.gain.linearRampToValueAtTime(0.1, audioContext.currentTime + 0.01);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration / 1000);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + duration / 1000);
+
+                // Show sound indicator
+                const soundWave = document.getElementById('soundWave');
+                soundWave.classList.add('active');
+                setTimeout(() => soundWave.classList.remove('active'), duration);
+            } catch (e) {
+                console.log('Audio playback failed');
+            }
+        }
+
+        // Create confetti effect
+        function createConfetti() {
+            const colors = ['#667eea', '#764ba2', '#f093fb', '#43e97b', '#4facfe', '#fa709a'];
+            
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDelay = Math.random() * 2 + 's';
+                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    document.body.appendChild(confetti);
+
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 5000);
+                }, i * 50);
+            }
+        }
+
+        // Survey data storage
+        const surveyData = {
+            ageGroup: '',
+            discoverySource: '',
+            discoveryOther: '',
+            location: '',
+            locationOther: '',
+            appUsage: false,
+            appsUsed: [],
+            appOther: '',
+            featurePreferences: {},
+            motivation: 2,
+            willingness: '',
+            barriers: '',
+            barrierOther: ''
+        };
+
+        let currentQuestion = 0;
+        let isTransitioning = false;
+
+        // Age slider functionality
+        const ageRanges = ['<18', '18-24', '24-34', '35-44', '45-54', '55+'];
+        const ageSlider = document.getElementById('ageSlider');
+        const ageDisplay = document.getElementById('ageDisplay');
+
+        ageSlider.addEventListener('input', function() {
+            const value = parseInt(this.value);
+            ageDisplay.textContent = ageRanges[value];
+            surveyData.ageGroup = ageRanges[value];
+            playSound(200 + value * 100, 100);
+        });
+
+        // Selection functions with other input handling
+        function selectDiscovery(element) {
+            document.querySelectorAll('.discovery-card').forEach(card => card.classList.remove('selected'));
+            element.classList.add('selected');
+            surveyData.discoverySource = element.dataset.value;
+            
+            const otherInput = document.getElementById('discoveryOther');
+            if (element.dataset.value === 'other') {
+                otherInput.style.display = 'block';
+                otherInput.focus();
+            } else {
+                otherInput.style.display = 'none';
+                otherInput.value = '';
+                surveyData.discoveryOther = '';
+            }
+            
+            playSound(523, 150);
+        }
+
+        function selectCity(element) {
+            document.querySelectorAll('.city-dot').forEach(dot => dot.classList.remove('selected'));
+            element.classList.add('selected');
+            surveyData.location = element.dataset.value;
+            
+            const otherInput = document.getElementById('locationOther');
+            if (element.dataset.value === 'other') {
+                otherInput.style.display = 'block';
+                otherInput.focus();
+            } else {
+                otherInput.style.display = 'none';
+                otherInput.value = '';
+                surveyData.locationOther = '';
+            }
+            
+            playSound(659, 150);
+        }
+
+        function toggleAppUsage() {
+            const toggle = document.getElementById('appToggle');
+            const slider = toggle.querySelector('.toggle-slider');
+            
+            toggle.classList.toggle('active');
+            if (toggle.classList.contains('active')) {
+                slider.textContent = '✅';
+                surveyData.appUsage = true;
+                playSound(784, 200);
+            } else {
+                slider.textContent = '❌';
+                surveyData.appUsage = false;
+                playSound(392, 200);
+            }
+        }
+
+        function selectApp(element) {
+            element.classList.toggle('selected');
+            const value = element.dataset.value;
+            
+            if (element.classList.contains('selected')) {
+                if (!surveyData.appsUsed.includes(value)) {
+                    surveyData.appsUsed.push(value);
+                }
+            } else {
+                surveyData.appsUsed = surveyData.appsUsed.filter(app => app !== value);
+            }
+            
+            const otherInput = document.getElementById('appOther');
+            if (value === 'other' && element.classList.contains('selected')) {
+                otherInput.style.display = 'block';
+                otherInput.focus();
+            } else if (value === 'other' && !element.classList.contains('selected')) {
+                otherInput.style.display = 'none';
+                otherInput.value = '';
+                surveyData.appOther = '';
+            }
+            
+            playSound(600, 100);
+        }
+
+        function selectPrice(element) {
+            document.querySelectorAll('.price-card').forEach(card => card.classList.remove('selected'));
+            element.classList.add('selected');
+            surveyData.willingness = element.dataset.value;
+            playSound(880, 150);
+        }
+
+        function selectBarrier(element) {
+            document.querySelectorAll('.barrier-option').forEach(option => option.classList.remove('selected'));
+            element.classList.add('selected');
+            surveyData.barriers = element.dataset.value;
+            
+            const otherInput = document.getElementById('barrierOther');
+            if (element.dataset.value === 'other') {
+                otherInput.style.display = 'block';
+                otherInput.focus();
+            } else {
+                otherInput.style.display = 'none';
+                otherInput.value = '';
+                surveyData.barrierOther = '';
+            }
+            
+            playSound(698, 150);
+        }
+
+        // Feature rating functionality
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('star')) {
+                const rating = parseInt(e.target.dataset.rating);
+                const featureName = e.target.closest('.star-rating').dataset.feature;
+                const stars = e.target.closest('.star-rating').querySelectorAll('.star');
+                
+                // Update visual state
+                stars.forEach((star, index) => {
+                    if (index < rating) {
+                        star.classList.add('active');
+                    } else {
+                        star.classList.remove('active');
+                    }
+                });
+                
+                // Store rating
+                surveyData.featurePreferences[featureName] = rating;
+                
+                // Play ascending tones based on rating
+                playSound(440 + (rating * 110), 100);
+            }
+        });
+
+        // Motivation slider functionality
+        let isDragging = false;
+        const motivationTrack = document.getElementById('motivationTrack');
+        const motivationThumb = document.getElementById('motivationThumb');
+        const motivationEmojis = ['😤', '😕', '😐', '😊', '🤩'];
+
+        function updateMotivationPosition(clientX) {
+            const rect = motivationTrack.getBoundingClientRect();
+            const thumbWidth = 70;
+            const trackPadding = thumbWidth / 2;
+            
+            // Calculate available width for movement
+            const availableWidth = rect.width - thumbWidth;
+            
+            // Calculate position relative to track
+            let relativeX = clientX - rect.left - trackPadding;
+            relativeX = Math.max(0, Math.min(availableWidth, relativeX));
+            
+            // Set thumb position
+            motivationThumb.style.left = relativeX + 'px';
+            
+            // Calculate level (0-4)
+            const percentage = relativeX / availableWidth;
+            const level = Math.round(percentage * 4);
+            
+            motivationThumb.textContent = motivationEmojis[level];
+            surveyData.motivation = level;
+            
+            // Play sound based on motivation level
+            playSound(300 + (level * 150), 80);
+        }
+
+        // Mouse events for motivation slider
+        motivationTrack.addEventListener('mousedown', function(e) {
+            isDragging = true;
+            updateMotivationPosition(e.clientX);
+            e.preventDefault();
+        });
+
+        document.addEventListener('mousemove', function(e) {
+            if (isDragging) {
+                updateMotivationPosition(e.clientX);
+                e.preventDefault();
+            }
+        });
+
+        document.addEventListener('mouseup', function() {
+            isDragging = false;
+        });
+
+        // Touch events for motivation slider
+        motivationTrack.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            isDragging = true;
+            updateMotivationPosition(e.touches[0].clientX);
+        });
+
+        document.addEventListener('touchmove', function(e) {
+            if (isDragging) {
+                e.preventDefault();
+                updateMotivationPosition(e.touches[0].clientX);
+            }
+        });
+
+        document.addEventListener('touchend', function() {
+            isDragging = false;
+        });
+
+        // Store other inputs
+        document.getElementById('discoveryOther').addEventListener('input', function() {
+            surveyData.discoveryOther = this.value;
+        });
+
+        document.getElementById('locationOther').addEventListener('input', function() {
+            surveyData.locationOther = this.value;
+        });
+
+        document.getElementById('appOther').addEventListener('input', function() {
+            surveyData.appOther = this.value;
+        });
+
+        document.getElementById('barrierOther').addEventListener('input', function() {
+            surveyData.barrierOther = this.value;
+        });
+
+        // Validation function
+        function validateCurrentQuestion() {
+            let questionId;
+            if (currentQuestion === 0) {
+                return true; // Welcome screen, no validation needed
+            } else if (currentQuestion === 4.5) {
+                questionId = 'q4a';
+            } else {
+                questionId = `q${currentQuestion}`;
+            }
+            
+            const errorElement = document.getElementById(`${questionId}-error`);
+            
+            if (errorElement) {
+                errorElement.classList.remove('show');
+            }
+
+            switch (questionId) {
+                case 'q1':
+                    return true; // Age is always selected
+                
+                case 'q2':
+                    if (!surveyData.discoverySource) {
+                        errorElement.classList.add('show');
+                        return false;
+                    }
+                    if (surveyData.discoverySource === 'other' && !surveyData.discoveryOther.trim()) {
+                        errorElement.textContent = 'Please specify how you discovered us';
+                        errorElement.classList.add('show');
+                        return false;
+                    }
+                    return true;
+                
+                case 'q3':
+                    if (!surveyData.location) {
+                        errorElement.classList.add('show');
+                        return false;
+                    }
+                    if (surveyData.location === 'other' && !surveyData.locationOther.trim()) {
+                        errorElement.textContent = 'Please specify your city';
+                        errorElement.classList.add('show');
+                        return false;
+                    }
+                    return true;
+                
+                case 'q4':
+                    return true; // Toggle always has a value
+                
+                case 'q4a':
+                    if (surveyData.appsUsed.length === 0) {
+                        errorElement.classList.add('show');
+                        return false;
+                    }
+                    if (surveyData.appsUsed.includes('other') && !surveyData.appOther.trim()) {
+                        errorElement.textContent = 'Please specify which other apps you use';
+                        errorElement.classList.add('show');
+                        return false;
+                    }
+                    return true;
+                
+                case 'q5':
+                    const requiredFeatures = ['food-scanner', 'meal-swaps', 'camera-coach', 'challenges', 'expert-tips', 'live-streams'];
+                    const missingFeatures = requiredFeatures.filter(feature => !surveyData.featurePreferences[feature]);
+                    if (missingFeatures.length > 0) {
+                        errorElement.classList.add('show');
+                        return false;
+                    }
+                    return true;
+                
+                case 'q6':
+                    return true; // Motivation always has a value
+                
+                case 'q7':
+                    if (!surveyData.willingness) {
+                        errorElement.classList.add('show');
+                        return false;
+                    }
+                    return true;
+                
+                case 'q8':
+                    if (!surveyData.barriers) {
+                        errorElement.classList.add('show');
+                        return false;
+                    }
+                    if (surveyData.barriers === 'other' && !surveyData.barrierOther.trim()) {
+                        errorElement.textContent = 'Please specify your wellness challenge';
+                        errorElement.classList.add('show');
+                        return false;
+                    }
+                    return true;
+                
+                default:
+                    return true;
+            }
+        }
+
+        // Navigation with validation
+        function nextQuestion(buttonElement) {
+            if (isTransitioning) return;
+            
+            // Initialize audio on first interaction
+            if (!audioContext) {
+                initAudio();
+            }
+            
+            // Validate current question
+            if (currentQuestion > 0 && !validateCurrentQuestion()) {
+                playSound(200, 200); // Error sound
+                return;
+            }
+            
+            isTransitioning = true;
+            const currentCard = document.querySelector('.question-card.active');
+            
+            // Add button click effect
+            if (buttonElement) {
+                buttonElement.classList.add('clicked');
+                setTimeout(() => buttonElement.classList.remove('clicked'), 200);
+            }
+            
+            // Play transition sound
+            playSound(523, 200);
+            
+            if (currentQuestion === 0) {
+                document.getElementById('progress-container').style.display = 'block';
+            }
+            
+            // Hide current card instantly
+            currentCard.classList.remove('active');
+            
+            // Determine next question based on current position
+            let nextQuestionId;
+            
+            if (currentQuestion === 0) {
+                currentQuestion = 1;
+                nextQuestionId = 'q1';
+            } else if (currentQuestion === 1) {
+                currentQuestion = 2;
+                nextQuestionId = 'q2';
+            } else if (currentQuestion === 2) {
+                currentQuestion = 3;
+                nextQuestionId = 'q3';
+            } else if (currentQuestion === 3) {
+                currentQuestion = 4;
+                nextQuestionId = 'q4';
+            } else if (currentQuestion === 4) {
+                // After app usage question
+                if (surveyData.appUsage) {
+                    currentQuestion = 4.5;
+                    nextQuestionId = 'q4a';
+                } else {
+                    currentQuestion = 5;
+                    nextQuestionId = 'q5';
+                }
+            } else if (currentQuestion === 4.5) {
+                // After app selection
+                currentQuestion = 5;
+                nextQuestionId = 'q5';
+            } else if (currentQuestion === 5) {
+                currentQuestion = 6;
+                nextQuestionId = 'q6';
+            } else if (currentQuestion === 6) {
+                currentQuestion = 7;
+                nextQuestionId = 'q7';
+            } else if (currentQuestion === 7) {
+                currentQuestion = 8;
+                nextQuestionId = 'q8';
+            } else if (currentQuestion === 8) {
+                currentQuestion = 9;
+                nextQuestionId = 'results';
+            }
+            
+            // Show next card
+            const nextCard = document.getElementById(nextQuestionId);
+            if (nextCard) {
+                nextCard.classList.add('active');
+                
+                if (nextQuestionId === 'results') {
+                    showResults();
+                    createConfetti();
+                    // submitSurveyData();
+                    playSound(880, 500);
+                }
+            }
+            
+            updateProgress();
+            isTransitioning = false;
+        }
+
+        function prevQuestion(buttonElement) {
+            if (isTransitioning || currentQuestion <= 0) return;
+            
+            isTransitioning = true;
+            const currentCard = document.querySelector('.question-card.active');
+            
+            // Add button click effect
+            if (buttonElement) {
+                buttonElement.classList.add('clicked');
+                setTimeout(() => buttonElement.classList.remove('clicked'), 200);
+            }
+            
+            // Play transition sound (lower pitch for back)
+            playSound(392, 200);
+            
+            // Hide current card instantly
+            currentCard.classList.remove('active');
+            
+            // Determine previous question based on current position
+            let prevQuestionId;
+            
+            if (currentQuestion === 1) {
+                currentQuestion = 0;
+                prevQuestionId = 'welcome';
+                document.getElementById('progress-container').style.display = 'none';
+            } else if (currentQuestion === 2) {
+                currentQuestion = 1;
+                prevQuestionId = 'q1';
+            } else if (currentQuestion === 3) {
+                currentQuestion = 2;
+                prevQuestionId = 'q2';
+            } else if (currentQuestion === 4) {
+                currentQuestion = 3;
+                prevQuestionId = 'q3';
+            } else if (currentQuestion === 4.5) {
+                // Going back from app selection to app usage
+                currentQuestion = 4;
+                prevQuestionId = 'q4';
+            } else if (currentQuestion === 5) {
+                // Going back from features
+                if (surveyData.appUsage) {
+                    currentQuestion = 4.5;
+                    prevQuestionId = 'q4a';
+                } else {
+                    currentQuestion = 4;
+                    prevQuestionId = 'q4';
+                }
+            } else if (currentQuestion === 6) {
+                currentQuestion = 5;
+                prevQuestionId = 'q5';
+            } else if (currentQuestion === 7) {
+                currentQuestion = 6;
+                prevQuestionId = 'q6';
+            } else if (currentQuestion === 8) {
+                currentQuestion = 7;
+                prevQuestionId = 'q7';
+            }
+            
+            // Show previous card
+            const prevCard = document.getElementById(prevQuestionId);
+            if (prevCard) {
+                prevCard.classList.add('active');
+            }
+            
+            if (currentQuestion > 0) {
+                updateProgress();
+            }
+            
+            isTransitioning = false;
+        }
+
+        function updateProgress() {
+            // Map current question to progress (0-8 scale)
+            let progressStep = currentQuestion;
+            if (currentQuestion === 4.5) {
+                progressStep = 4.5;
+            } else if (currentQuestion > 4.5) {
+                progressStep = currentQuestion;
+            }
+            
+            const progress = (progressStep / 8) * 100;
+            document.getElementById('progress-fill').style.width = progress + '%';
+        }
+
+        function showResults() {
+            const resultsContent = document.getElementById('resultsContent');
+            
+            // Map data to readable format
+            const discoveryMap = {
+                'campus': 'University/Campus 🎓',
+                'gym': 'Gym/Fitness Club 💪',
+                'work': 'Workplace 💼',
+                'social': 'Friends/Social Media 👥',
+                'other': surveyData.discoveryOther || 'Other Source 🔍'
+            };
+            
+            const locationMap = {
+                'delhi': 'Delhi 🏛️',
+                'mumbai': 'Mumbai 🌊',
+                'kolkata': 'Kolkata 🎭',
+                'bengaluru': 'Bengaluru 💻',
+                'chennai': 'Chennai 🌴',
+                'hyderabad': 'Hyderabad 💎',
+                'pune': 'Pune 🎓',
+                'other': surveyData.locationOther || 'Other City 🗺️'
+            };
+            
+            const barrierMap = {
+                'time': 'Lack of Time ⏰',
+                'cost': 'Cost Concerns 💸',
+                'motivation': 'Motivation Issues 😴',
+                'confusion': 'Confusing Advice 🤔',
+                'other': surveyData.barrierOther || 'Other Reasons ❓'
+            };
+            
+            const motivationLevels = ['Not Motivated 😤', 'Slightly Motivated 😕', 'Neutral 😐', 'Motivated 😊', 'Very Motivated! 🤩'];
+            
+            const appMap = {
+                'healthifyme': 'HealthifyMe',
+                'curefit': 'Cure.fit (Cult.fit)',
+                'goqii': 'GOQii',
+                'fittr': 'Fittr',
+                'myfitnesspal': 'MyFitnessPal',
+                'googlefit': 'Google Fit',
+                'applehealth': 'Apple Health',
+                'fitbit': 'Fitbit',
+                'strava': 'Strava',
+                'nike': 'Nike Training Club',
+                'adidas': 'Adidas Runtastic',
+                'other': surveyData.appOther || 'Other'
+            };
+            
+            resultsContent.innerHTML = `
+                <div class="result-item">
+                    <strong>Age Group:</strong>
+                    <span>${surveyData.ageGroup || 'Not specified'}</span>
+                </div>
+                <div class="result-item">
+                    <strong>Discovery Source:</strong>
+                    <span>${discoveryMap[surveyData.discoverySource] || 'Not specified'}</span>
+                </div>
+                <div class="result-item">
+                    <strong>Location:</strong>
+                    <span>${locationMap[surveyData.location] || 'Not specified'}</span>
+                </div>
+                <div class="result-item">
+                    <strong>Current App Usage:</strong>
+                    <span>${surveyData.appUsage ? 'Yes ✅' : 'No ❌'}</span>
+                </div>
+                ${surveyData.appUsage && surveyData.appsUsed.length > 0 ? `
+                <div class="result-item">
+                    <strong>Apps Being Used:</strong>
+                    <span>${surveyData.appsUsed.map(app => appMap[app]).join(', ')}</span>
+                </div>
+                ` : ''}
+                <div class="result-item">
+                    <strong>Reward Motivation:</strong>
+                    <span>${motivationLevels[surveyData.motivation] || 'Not specified'}</span>
+                </div>
+                <div class="result-item">
+                    <strong>Price Willingness:</strong>
+                    <span>₹${surveyData.willingness || 'Not specified'}</span>
+                </div>
+                <div class="result-item">
+                    <strong>Main Barrier:</strong>
+                    <span>${barrierMap[surveyData.barriers] || 'Not specified'}</span>
+                </div>
+                <div class="result-item" style="border-bottom: none;">
+                    <strong>Feature Ratings:</strong>
+                    <div style="margin-top: 15px;">
+                        ${Object.entries(surveyData.featurePreferences).map(([feature, rating]) => {
+                            const featureNames = {
+                                'food-scanner': '📦 Smart Food Scanner',
+                                'meal-swaps': '🔄 AI Meal Swaps',
+                                'camera-coach': '📸 Camera Workout Coach',
+                                'challenges': '🏆 Friendly Challenges',
+                                'expert-tips': '🎬 Quick Expert Tips',
+                                'live-streams': '📺 Live Workout Streams'
+                            };
+                            return `<div style="display: flex; justify-content: space-between; padding: 8px 0; border-radius: 8px; margin: 4px 0; background: rgba(255, 255, 255, 0.02);">
+                                <span style="padding-left: 12px;">${featureNames[feature]}:</span>
+                                <span style="padding-right: 12px;">${'⭐'.repeat(rating)}</span>
+                            </div>`;
+                        }).join('')}
+                    </div>
+                </div>
+            `;
+        }
+        // function submitSurveyData() {
+            
+        //     fetch('http://127.0.0.1:8000/submit-survey/', {
+        //         method: 'POST',
+        //         headers: { 'Content-Type': 'application/json' },
+        //         body: JSON.stringify(surveyData)
+        //     })
+        //     .then(res => res.json())
+        //     .then(res => {
+        //         console.log('Survey submitted:', res);
+        //     })
+        //     .catch(err => {
+        //         console.error('Submission error:', err);
+        //     });
+        // }
+        function submitSurveyData() {
+            const BACKEND_URL = 'https://marketresearch-production-bb75.up.railway.app'; // Replace with your actual Railway URL
+            
+            fetch(`${BACKEND_URL}/submit-survey/`, {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Origin': window.location.origin
+                },
+                body: JSON.stringify(surveyData)
+            })
+            .then(res => res.json())
+            .then(res => {
+                console.log('Survey submitted:', res);
+            })
+            .catch(err => {
+                console.error('Submission error:', err);
+            });
+        }
+        function submitAndNext(buttonElement) {
+            // First validate the current question
+            if (!validateCurrentQuestion()) {
+                playSound(200, 200); // Error sound
+                return;
+            }
+            
+            // Submit the survey data
+            submitSurveyData();
+            
+            // Then proceed to next question
+            nextQuestion(buttonElement);
+        }
+
+        function downloadResults(buttonElement) {
+            if (buttonElement) {
+                buttonElement.classList.add('clicked');
+                setTimeout(() => buttonElement.classList.remove('clicked'), 200);
+            }
+            
+            const data = {
+                timestamp: new Date().toISOString(),
+                responses: surveyData
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `wellness-survey-${Date.now()}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            playSound(880, 300);
+        }
+
+        function restartSurvey(buttonElement) {
+            if (buttonElement) {
+                buttonElement.classList.add('clicked');
+                setTimeout(() => buttonElement.classList.remove('clicked'), 200);
+            }
+            
+            // Reset all data
+            Object.keys(surveyData).forEach(key => {
+                if (typeof surveyData[key] === 'object' && !Array.isArray(surveyData[key])) {
+                    surveyData[key] = {};
+                } else if (Array.isArray(surveyData[key])) {
+                    surveyData[key] = [];
+                } else {
+                    surveyData[key] = '';
+                }
+            });
+            surveyData.appUsage = false;
+            surveyData.motivation = 2;
+            
+            // Reset UI
+            currentQuestion = 0;
+            isTransitioning = false;
+            document.querySelectorAll('.question-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            document.getElementById('welcome').classList.add('active');
+            document.getElementById('progress-container').style.display = 'none';
+            
+            // Reset form elements
+            document.getElementById('ageSlider').value = 2;
+            document.getElementById('ageDisplay').textContent = '24-34';
+            document.querySelectorAll('.selected').forEach(el => el.classList.remove('selected'));
+            document.querySelectorAll('.star.active').forEach(star => star.classList.remove('active'));
+            document.getElementById('appToggle').classList.remove('active');
+            document.querySelector('.toggle-slider').textContent = '❌';
+            document.getElementById('motivationThumb').style.left = '0';
+            document.getElementById('motivationThumb').textContent = '😐';
+            
+            // Hide all other inputs
+            document.querySelectorAll('.other-input').forEach(input => {
+                input.style.display = 'none';
+                input.value = '';
+            });
+            
+            // Hide all error messages
+            document.querySelectorAll('.error-message').forEach(error => {
+                error.classList.remove('show');
+            });
+            
+            playSound(262, 400);
+        }
+
+            // Initialize default values
+            surveyData.ageGroup = ageRanges[2];
+            
+            // Initialize motivation slider position
+            const motivationRect = motivationTrack.getBoundingClientRect();
+            const thumbWidth = 70;
+            const availableWidth = motivationRect.width - thumbWidth;
+            motivationThumb.style.left = (availableWidth / 2) + 'px';
+
+        // Add haptic feedback simulation for mobile
+        document.addEventListener('DOMContentLoaded', function() {
+            if (navigator.vibrate) {
+                document.addEventListener('click', function(e) {
+                    if (e.target.classList.contains('btn') || 
+                        e.target.closest('.discovery-card') ||
+                        e.target.closest('.city-dot') ||
+                        e.target.closest('.price-card') ||
+                        e.target.closest('.barrier-option') ||
+                        e.target.classList.contains('star') ||
+                        e.target.closest('.app-option')) {
+                        navigator.vibrate(30);
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+
