@@ -1512,6 +1512,16 @@
             </div>
         </div>
 
+        <div class="question-card" id="q9">
+            <h2 class="question-title">📧 Where can we reach you?</h2>
+            <p class="question-subtitle">Enter your email to participate in the Amazon voucher draw and get updates about the app. We respect your privacy! Stay Tuned!</p>
+            <input type="email" class="other-input" id="emailInput" placeholder="your@email.com" style="display:block;"/>
+            <div class="error-message" id="q9-error">Please enter a valid email address</div>
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="prevQuestion(this)">← Back</button>
+                <button class="btn btn-primary" onclick="nextQuestion(this)">Next →</button>
+        </div>
+</div>
         <!-- Results -->
         <div class="question-card" id="results">
             <h2 class="question-title">🎉 Thank you for your insights!</h2>
@@ -1597,6 +1607,7 @@
         }
 
         // Survey data storage
+        // ...existing code...
         const surveyData = {
             ageGroup: '',
             discoverySource: '',
@@ -1610,8 +1621,10 @@
             motivation: 2,
             willingness: '',
             barriers: '',
-            barrierOther: ''
+            barrierOther: '',
+            email: '' // <-- Add this line
         };
+// ...existing code...
 
         let currentQuestion = 0;
         let isTransitioning = false;
@@ -1840,6 +1853,9 @@
             surveyData.barrierOther = this.value;
         });
 
+        document.getElementById('emailInput').addEventListener('input', function() {
+            surveyData.email = this.value;
+        });
         // Validation function
         function validateCurrentQuestion() {
             let questionId;
@@ -1847,6 +1863,8 @@
                 return true; // Welcome screen, no validation needed
             } else if (currentQuestion === 4.5) {
                 questionId = 'q4a';
+            } else if (currentQuestion === 9) {
+                questionId = 'q9';
             } else {
                 questionId = `q${currentQuestion}`;
             }
@@ -1930,104 +1948,158 @@
                         return false;
                     }
                     return true;
-                
+                case 'q9':
+                    // Simple email regex
+                    const email = surveyData.email.trim();
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!email || !emailRegex.test(email)) {
+                        errorElement.classList.add('show');
+                        return false;
+                    }
+                    return true;
                 default:
                     return true;
             }
         }
 
         // Navigation with validation
+        // function nextQuestion(buttonElement) {
+        //     if (isTransitioning) return;
+            
+        //     // Initialize audio on first interaction
+        //     if (!audioContext) {
+        //         initAudio();
+        //     }
+            
+        //     // Validate current question
+        //     if (currentQuestion > 0 && !validateCurrentQuestion()) {
+        //         playSound(200, 200); // Error sound
+        //         return;
+        //     }
+            
+        //     isTransitioning = true;
+        //     const currentCard = document.querySelector('.question-card.active');
+            
+        //     // Add button click effect
+        //     if (buttonElement) {
+        //         buttonElement.classList.add('clicked');
+        //         setTimeout(() => buttonElement.classList.remove('clicked'), 200);
+        //     }
+            
+        //     // Play transition sound
+        //     playSound(523, 200);
+            
+        //     if (currentQuestion === 0) {
+        //         document.getElementById('progress-container').style.display = 'block';
+        //     }
+            
+        //     // Hide current card instantly
+        //     currentCard.classList.remove('active');
+            
+        //     // Determine next question based on current position
+        //     let nextQuestionId;
+            
+        //     if (currentQuestion === 0) {
+        //         currentQuestion = 1;
+        //         nextQuestionId = 'q1';
+        //     } else if (currentQuestion === 1) {
+        //         currentQuestion = 2;
+        //         nextQuestionId = 'q2';
+        //     } else if (currentQuestion === 2) {
+        //         currentQuestion = 3;
+        //         nextQuestionId = 'q3';
+        //     } else if (currentQuestion === 3) {
+        //         currentQuestion = 4;
+        //         nextQuestionId = 'q4';
+        //     } else if (currentQuestion === 4) {
+        //         // After app usage question
+        //         if (surveyData.appUsage) {
+        //             currentQuestion = 4.5;
+        //             nextQuestionId = 'q4a';
+        //         } else {
+        //             currentQuestion = 5;
+        //             nextQuestionId = 'q5';
+        //         }
+        //     } else if (currentQuestion === 4.5) {
+        //         // After app selection
+        //         currentQuestion = 5;
+        //         nextQuestionId = 'q5';
+        //     } else if (currentQuestion === 5) {
+        //         currentQuestion = 6;
+        //         nextQuestionId = 'q6';
+        //     } else if (currentQuestion === 6) {
+        //         currentQuestion = 7;
+        //         nextQuestionId = 'q7';
+        //     } else if (currentQuestion === 7) {
+        //         currentQuestion = 8;
+        //         nextQuestionId = 'q8';
+        //     } else if (currentQuestion === 8) {
+        //         currentQuestion = 9;
+        //         nextQuestionId = 'results';
+        //     }
+            
+        //     // Show next card
+        //     const nextCard = document.getElementById(nextQuestionId);
+        //     if (nextCard) {
+        //         nextCard.classList.add('active');
+                
+        //         if (nextQuestionId === 'results') {
+        //             showResults();
+        //             createConfetti();
+        //             // submitSurveyData();
+        //             playSound(880, 500);
+        //         }
+        //     }
+            
+        //     updateProgress();
+        //     isTransitioning = false;
+        // }
+        // ...existing code...
         function nextQuestion(buttonElement) {
             if (isTransitioning) return;
-            
-            // Initialize audio on first interaction
-            if (!audioContext) {
-                initAudio();
-            }
-            
-            // Validate current question
+            if (!audioContext) { initAudio(); }
             if (currentQuestion > 0 && !validateCurrentQuestion()) {
-                playSound(200, 200); // Error sound
-                return;
+                playSound(200, 200); return;
             }
-            
             isTransitioning = true;
             const currentCard = document.querySelector('.question-card.active');
-            
-            // Add button click effect
             if (buttonElement) {
                 buttonElement.classList.add('clicked');
                 setTimeout(() => buttonElement.classList.remove('clicked'), 200);
             }
-            
-            // Play transition sound
             playSound(523, 200);
-            
             if (currentQuestion === 0) {
                 document.getElementById('progress-container').style.display = 'block';
             }
-            
-            // Hide current card instantly
             currentCard.classList.remove('active');
-            
-            // Determine next question based on current position
             let nextQuestionId;
-            
-            if (currentQuestion === 0) {
-                currentQuestion = 1;
-                nextQuestionId = 'q1';
-            } else if (currentQuestion === 1) {
-                currentQuestion = 2;
-                nextQuestionId = 'q2';
-            } else if (currentQuestion === 2) {
-                currentQuestion = 3;
-                nextQuestionId = 'q3';
-            } else if (currentQuestion === 3) {
-                currentQuestion = 4;
-                nextQuestionId = 'q4';
-            } else if (currentQuestion === 4) {
-                // After app usage question
-                if (surveyData.appUsage) {
-                    currentQuestion = 4.5;
-                    nextQuestionId = 'q4a';
-                } else {
-                    currentQuestion = 5;
-                    nextQuestionId = 'q5';
-                }
-            } else if (currentQuestion === 4.5) {
-                // After app selection
-                currentQuestion = 5;
-                nextQuestionId = 'q5';
-            } else if (currentQuestion === 5) {
-                currentQuestion = 6;
-                nextQuestionId = 'q6';
-            } else if (currentQuestion === 6) {
-                currentQuestion = 7;
-                nextQuestionId = 'q7';
-            } else if (currentQuestion === 7) {
-                currentQuestion = 8;
-                nextQuestionId = 'q8';
-            } else if (currentQuestion === 8) {
-                currentQuestion = 9;
-                nextQuestionId = 'results';
+            if (currentQuestion === 0) { currentQuestion = 1; nextQuestionId = 'q1'; }
+            else if (currentQuestion === 1) { currentQuestion = 2; nextQuestionId = 'q2'; }
+            else if (currentQuestion === 2) { currentQuestion = 3; nextQuestionId = 'q3'; }
+            else if (currentQuestion === 3) { currentQuestion = 4; nextQuestionId = 'q4'; }
+            else if (currentQuestion === 4) {
+                if (surveyData.appUsage) { currentQuestion = 4.5; nextQuestionId = 'q4a'; }
+                else { currentQuestion = 5; nextQuestionId = 'q5'; }
             }
-            
-            // Show next card
+            else if (currentQuestion === 4.5) { currentQuestion = 5; nextQuestionId = 'q5'; }
+            else if (currentQuestion === 5) { currentQuestion = 6; nextQuestionId = 'q6'; }
+            else if (currentQuestion === 6) { currentQuestion = 7; nextQuestionId = 'q7'; }
+            else if (currentQuestion === 7) { currentQuestion = 8; nextQuestionId = 'q8'; }
+            else if (currentQuestion === 8) { currentQuestion = 9; nextQuestionId = 'q9'; } // <-- Go to email
+            else if (currentQuestion === 9) { currentQuestion = 10; nextQuestionId = 'results'; } // <-- Then results
             const nextCard = document.getElementById(nextQuestionId);
             if (nextCard) {
                 nextCard.classList.add('active');
-                
                 if (nextQuestionId === 'results') {
                     showResults();
                     createConfetti();
-                    // submitSurveyData();
                     playSound(880, 500);
                 }
             }
-            
             updateProgress();
             isTransitioning = false;
         }
+        // ...existing code...
 
         function prevQuestion(buttonElement) {
             if (isTransitioning || currentQuestion <= 0) return;
@@ -2162,6 +2234,10 @@
             };
             
             resultsContent.innerHTML = `
+                <div class="result-item">
+                    <strong>Email:</strong>
+                    <span>${surveyData.email || 'Not specified'}</span>
+                </div>
                 <div class="result-item">
                     <strong>Age Group:</strong>
                     <span>${surveyData.ageGroup || 'Not specified'}</span>
