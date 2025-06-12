@@ -54,7 +54,7 @@ class Survey(models.Model):
     barrier_other = models.CharField(max_length=255, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     email = models.CharField(max_length=255, blank=True)
-   
+    
     def __str__(self):
         return f"Survey #{self.id} - Age: {self.age_group}"
 

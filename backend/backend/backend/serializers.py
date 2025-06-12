@@ -13,13 +13,14 @@ class SurveySerializer(serializers.ModelSerializer):
     featurePreferences = serializers.JSONField(source='feature_preferences', required=False)
     barrierOther = serializers.CharField(source='barrier_other', required=False, allow_blank=True)
     email = serializers.CharField(source='email', required=False, allow_blank=True)
+    
     class Meta:
         model = Survey
         fields = [
             'id', 'ageGroup', 'discoverySource', 'discoveryOther', 
             'location', 'locationOther', 'appUsage', 'appsUsed', 
             'appOther', 'featurePreferences', 'motivation', 
-            'willingness', 'barriers', 'barrierOther', 'created_at','email'
+            'willingness', 'barriers', 'barrierOther', 'created_at'
         ]
         
     def create(self, validated_data):
