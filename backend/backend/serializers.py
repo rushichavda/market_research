@@ -20,7 +20,7 @@ class SurveySerializer(serializers.ModelSerializer):
             'id', 'ageGroup', 'discoverySource', 'discoveryOther', 
             'location', 'locationOther', 'appUsage', 'appsUsed', 
             'appOther', 'featurePreferences', 'motivation', 
-            'willingness', 'barriers', 'barrierOther', 'created_at'
+            'willingness', 'barriers', 'barrierOther', 'created_at', "emailInput"
         ]
         
     def create(self, validated_data):
