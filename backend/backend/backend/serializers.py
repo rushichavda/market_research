@@ -12,7 +12,7 @@ class SurveySerializer(serializers.ModelSerializer):
     appOther = serializers.CharField(source='app_other', required=False, allow_blank=True)
     featurePreferences = serializers.JSONField(source='feature_preferences', required=False)
     barrierOther = serializers.CharField(source='barrier_other', required=False, allow_blank=True)
-    email = serializers.CharField(source='email', required=False, allow_blank=True)
+    emailInput = serializers.CharField(source='email', required=False, allow_blank=True)
     
     class Meta:
         model = Survey

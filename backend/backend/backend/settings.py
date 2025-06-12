@@ -114,7 +114,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # CORS settings - Updated for production
 CORS_ALLOWED_ORIGINS = [
-    "https://your-vercel-app.vercel.app",  # Replace with your actual Vercel URL
+    "market-research-one.vercel.app",  # Replace with your actual Vercel URL
     "http://localhost:3000",
     "http://127.0.0.1:3000",
 ]
